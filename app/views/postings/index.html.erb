@@ -1,2 +1,32 @@
-
 <h1>Listing All Postings</h1>
+
+<form method="POST">
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input type="title" class="form-control" name="title" id="title">
+  </div>
+  <div class="form-group">
+    <label for="body">Body:</label>
+    <textarea class="form-control" name="body" rows="5" id="body"></textarea>
+    <div class="form-group">
+</div>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+  <% @all_postings.each do |p| %>
+    <h2>Title : <%= p.title %></p>
+    <p><%= p.body %></p>
+    <form action="/comment/create" method="POST">
+    <h4><label for ="comment">Add a comment:</label><h4></h4>
+    <%= hidden_field_tag(:id_of_posting, p.id) %> 
+    <input type="comment" class="form-control" name="content" id="comment">
+    <button type="submit" class="btn btn-primary">Comment</button>
+</form>
+
+<% @all_comment.each do |c| %>
+   <% if c.posting_id == p.id %>
+     <h3><p><%= c.content %></p></h3>
+     <% end %>
+   <% end %>
+<% end %>
